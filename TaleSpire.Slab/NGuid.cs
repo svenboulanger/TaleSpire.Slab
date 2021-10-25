@@ -40,13 +40,9 @@ namespace TaleSpire.Slab
 
         // Long version
         [FieldOffset(0)]
-        private readonly uint _data0;
-        [FieldOffset(4)]
-        private readonly uint _data1;
+        private readonly ulong _data0;
         [FieldOffset(8)]
-        private readonly uint _data2;
-        [FieldOffset(12)]
-        private readonly uint _data3;
+        private readonly ulong _data1;
 
         /// <summary>
         /// Creates a new ID.
@@ -68,25 +64,46 @@ namespace TaleSpire.Slab
         }
 
         /// <summary>
+        /// Creates an NGuid from a regular guid.
+        /// </summary>
+        /// <param name="guid">The guid.</param>
+        public NGuid(Guid guid)
+            : this()
+        {
+            var bytes = guid.ToByteArray();
+            _a = (bytes[3] << 24) | (bytes[2] << 16) | (bytes[1] << 8) | bytes[0];
+            _b = (short)((bytes[5] << 8) | bytes[4]);
+            _c = (short)((bytes[7] << 8) | bytes[6]);
+            _d = bytes[8];
+            _e = bytes[9];
+            _f = bytes[10];
+            _g = bytes[11];
+            _h = bytes[12];
+            _i = bytes[13];
+            _j = bytes[14];
+            _k = bytes[15];
+        }
+
+        /// <summary>
         /// Creates a new ID.
         /// </summary>
         /// <param name="reader">The reader.</param>
         public NGuid(BinaryReader reader)
             : this()
         {
-            _data0 = reader.ReadUInt32();
-            _data1 = reader.ReadUInt32();
-            _data2 = reader.ReadUInt32();
-            _data3 = reader.ReadUInt32();
+            _data0 = reader.ReadUInt64();
+            _data1 = reader.ReadUInt64();
         }
 
+        /// <summary>
+        /// Creates a hash code for the GUID.
+        /// </summary>
+        /// <returns>The hash code.</returns>
         public override int GetHashCode()
         {
-            uint hash = _data0;
-            hash = (hash * 1021) ^ _data1;
-            hash = (hash * 1021) ^ _data2;
-            hash = (hash * 1021) ^ _data3;
-            return (int)hash;
+            int hash = _data0.GetHashCode();
+            hash = (hash * 1021) ^ _data1.GetHashCode();
+            return hash;
         }
 
         /// <summary>
@@ -112,10 +129,6 @@ namespace TaleSpire.Slab
                 return false;
             if (_data1 != other._data1)
                 return false;
-            if (_data2 != other._data2)
-                return false;
-            if (_data3 != other._data3)
-                return false;
             return true;
         }
 
@@ -127,8 +140,6 @@ namespace TaleSpire.Slab
         {
             writer.Write(_data0);
             writer.Write(_data1);
-            writer.Write(_data2);
-            writer.Write(_data3);
         }
 
         /// <summary>
@@ -139,8 +150,8 @@ namespace TaleSpire.Slab
         {
             return string.Format(
                 System.Globalization.CultureInfo.InvariantCulture,
-                "{0:x8}-{1:x4}-{2:x4}={3:x4}-{3:x4}{4:x8}",
-                _a, _b, _c, (_data2 >> 16) & 0x0ffff, _data2 & 0x0ffff, _data3);
+                "{0:x8}-{1:x4}-{2:x4}-{3:x4}-{3:x12}",
+                _a, _b, _c, (_data1 >> 48) & 0x0ffff, _data1 & 0x0ffffffffffff);
         }
     }
 }
