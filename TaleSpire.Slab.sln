@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaleSpire.Slab", "TaleSpire.Slab\TaleSpire.Slab.csproj", "{6E75B0AB-8A8C-4F72-956C-5DE067BF474D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaleSpire.Slab.Tests", "TaleSpire.Slab.Tests\TaleSpire.Slab.Tests.csproj", "{286F0069-DD3D-49E7-8ADA-518C201E17EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E75B0AB-8A8C-4F72-956C-5DE067BF474D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E75B0AB-8A8C-4F72-956C-5DE067BF474D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E75B0AB-8A8C-4F72-956C-5DE067BF474D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E75B0AB-8A8C-4F72-956C-5DE067BF474D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{286F0069-DD3D-49E7-8ADA-518C201E17EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{286F0069-DD3D-49E7-8ADA-518C201E17EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{286F0069-DD3D-49E7-8ADA-518C201E17EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{286F0069-DD3D-49E7-8ADA-518C201E17EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E4090C8-6EC0-43ED-8BD1-801680FBAFE7}
+	EndGlobalSection
+EndGlobal
