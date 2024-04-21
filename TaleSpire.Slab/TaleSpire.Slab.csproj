@@ -8,6 +8,24 @@
     <Copyright />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Sven Boulanger</Authors>
+    <Title>TaleSpire Slab</Title>
+    <Version>1.0.1</Version>
+    <PackageProjectUrl>https://github.com/svenboulanger/TaleSpire.Slab</PackageProjectUrl>
+    <PackageIcon>talespire.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/svenboulanger/TaleSpire.Slab</RepositoryUrl>
+    <PackageTags>TaleSpire slab tabletop game</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\talespire.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
