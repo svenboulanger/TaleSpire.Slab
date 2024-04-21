@@ -1,4 +1,6 @@
-﻿namespace TaleSpire.Slab
+﻿using System;
+
+namespace TaleSpire.Slab
 {
     /// <summary>
     /// A layout in TaleSpire.
@@ -8,7 +10,7 @@
         /// <summary>
         /// Gets the identifier of the layout.
         /// </summary>
-        public NGuid AssetKindId { get; }
+        public Guid AssetKindId { get; }
 
         /// <summary>
         /// Gets the number of assets.

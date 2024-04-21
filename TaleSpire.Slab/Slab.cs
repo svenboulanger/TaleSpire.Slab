@@ -35,7 +35,7 @@ namespace TaleSpire.Slab
                 maybeSlabString = maybeSlabString.Substring(3, maybeSlabString.Length - _markdownCodeBrace.Length * 2);
 
             // Decode the slab
-            var decoded = Convert.FromBase64String(maybeSlabString);
+            byte[] decoded = Convert.FromBase64String(maybeSlabString);
             if (decoded.Length > MaximumSize)
                 throw new ArgumentException("Slab is too large");
             

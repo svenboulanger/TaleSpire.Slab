@@ -18,7 +18,7 @@ namespace TaleSpire.Slab.V1
         public AssetData[] Assets { get; }
 
         /// <inheritdoc/>
-        public NGuid AssetKindId => Data.AssetKindId;
+        public Guid AssetKindId => Data.AssetKindId;
 
         /// <inheritdoc/>
         public int AssetCount => Assets.Length;

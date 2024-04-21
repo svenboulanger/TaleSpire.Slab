@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace TaleSpire.Slab.V2
 {
@@ -10,7 +11,7 @@ namespace TaleSpire.Slab.V2
         /// <summary>
         /// Gets the kind of asset.
         /// </summary>
-        public NGuid AssetKindId { get; }
+        public Guid AssetKindId { get; }
 
         /// <summary>
         /// Gets the number of assets in the layout.
@@ -22,7 +23,7 @@ namespace TaleSpire.Slab.V2
         /// </summary>
         /// <param name="assetKindId">The kind of asset.</param>
         /// <param name="assetCount">The number of assets.</param>
-        public LayoutData(NGuid assetKindId, ushort assetCount)
+        public LayoutData(Guid assetKindId, ushort assetCount)
         {
             AssetKindId = assetKindId;
             AssetCount = assetCount;
@@ -34,7 +35,7 @@ namespace TaleSpire.Slab.V2
         /// <param name="reader">The reader.</param>
         public LayoutData(BinaryReader reader)
         {
-            AssetKindId = new NGuid(reader);
+            AssetKindId = new Guid(reader.ReadBytes(16));
             AssetCount = reader.ReadUInt16();
 
             // The docs say reserved, but we know this is because of memory alignment: C# likes to splice in 2 more bytes...
@@ -47,7 +48,7 @@ namespace TaleSpire.Slab.V2
         /// <param name="writer">The writer.</param>
         public void Write(BinaryWriter writer)
         {
-            AssetKindId.Write(writer);
+            writer.Write(AssetKindId.ToByteArray());
             writer.Write(AssetCount);
             writer.Write((ushort)0); // reserved
         }
