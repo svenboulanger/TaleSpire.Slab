@@ -9,7 +9,7 @@ You can load slabs using
 using TaleSpire.Slab;
 
 // Import a slab (any version)
-var slab = Slab.Import(slabString);
+var slab = Slabs.Import(slabString);
 
 // Export a slab
 string newSlabString = slab.Export();
