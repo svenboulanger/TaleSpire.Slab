@@ -18,7 +18,7 @@ namespace TaleSpire.Slab.Tests
         [MemberData(nameof(Slabs))]
         public void When_ParseSlabs_Expect_AssetCount(string slabString, int assets)
         {
-            var slab = Slab.Import(slabString);
+            var slab = Slab.Slabs.Import(slabString);
 
             // count the number of assets
             var layoutSlab = Assert.IsAssignableFrom<ILayoutSlab>(slab);
@@ -32,7 +32,7 @@ namespace TaleSpire.Slab.Tests
         [MemberData(nameof(Slabs))]
         public void When_ParseSlabsAndExport_Expect_Original(string slabString, int _)
         {
-            var slab = Slab.Import(slabString);
+            var slab = Slab.Slabs.Import(slabString);
             string ownExport = slab.Export();
 
             var expected = ToBytes(slabString);

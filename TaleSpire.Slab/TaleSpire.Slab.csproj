@@ -9,7 +9,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Sven Boulanger</Authors>
     <Title>TaleSpire Slab</Title>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageProjectUrl>https://github.com/svenboulanger/TaleSpire.Slab</PackageProjectUrl>
     <PackageIcon>talespire.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>

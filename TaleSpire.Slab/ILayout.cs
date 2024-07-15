@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace TaleSpire.Slab
 {
@@ -16,5 +18,16 @@ namespace TaleSpire.Slab
         /// Gets the number of assets.
         /// </summary>
         public int AssetCount { get; }
+        
+        /// <summary>
+        /// Gets the assets in the layout.
+        /// </summary>
+        public IEnumerable<IAsset> Assets { get; }
+
+        /// <summary>
+        /// Writes the layout to a binary writer.
+        /// </summary>
+        /// <param name="w">The writer.</param>
+        public void Write(BinaryWriter w);
     }
 }

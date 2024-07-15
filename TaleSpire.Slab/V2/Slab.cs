@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 
 namespace TaleSpire.Slab.V2
@@ -12,8 +11,14 @@ namespace TaleSpire.Slab.V2
     public class Slab : ILayoutSlab, IEquatable<Slab>
     {
         private readonly Layout[] _layouts;
-        private const uint _magicHex = 0xD1CEFACE;
-        private const ushort _currentVersion = 2;
+        
+        /// <inheritdoc />
+        public ushort Version => 2;
+
+        /// <summary>
+        /// Gets or sets the maximum decompressed size.
+        /// </summary>
+        public static uint MaximumSize { get; set; } = 30 * 1024;
         
         /// <summary>
         /// Gets a list of layouts.
@@ -99,20 +104,12 @@ namespace TaleSpire.Slab.V2
             return slab;
         }
 
-        /// <inheritdoc/>
-        public string Export(bool markdown = false)
+        /// <inheritdoc />
+        public void Write(BinaryWriter w)
         {
-            using var output = new MemoryStream();
-            using var gzip = new GZipStream(output, CompressionLevel.Optimal);
-            using var w = new BinaryWriter(gzip);
-
-            // Write the magic identifier and the current version
-            w.Write(_magicHex);
-            w.Write(_currentVersion);
-
             // Write the layout information
             w.Write((ushort)_layouts.Length);
-            w.Write((ushort)0); // No creatures
+            w.Write((ushort)0); // No creatures yet
 
             // Write the layout headers
             for (int i = 0; i < _layouts.Length; i++)
@@ -120,21 +117,10 @@ namespace TaleSpire.Slab.V2
 
             // Write the layouts
             for (int i = 0; i < _layouts.Length; i++)
-            {
-                var layout = _layouts[i];
-                for (int j = 0; j < layout.Assets.Length; j++)
-                    layout.Assets[j].Write(w);
-            }
+                _layouts[i].Write(w);
 
-            // This is undocumented, kind of thinking a count of something else?
+            // This is undocumented, kind of thinking of a count of something else?
             w.Write((ushort)0);
-
-            // Close the streams, which is necessary for GZip to complete the compression as well
-            w.Close();
-
-            // return the result, optionally for markdown
-            string result = Convert.ToBase64String(output.ToArray(), Base64FormattingOptions.None);
-            return markdown ? $"```{result}```" : result;
         }
     }
 }

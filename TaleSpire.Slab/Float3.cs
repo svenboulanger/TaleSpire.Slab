@@ -88,6 +88,23 @@ namespace TaleSpire.Slab
         }
 
         /// <summary>
+        /// Rotates the vector around its Y-axis.
+        /// Rotation is clockwise, like in TaleSpire.
+        /// </summary>
+        /// <param name="angle">The angle in degrees.</param>
+        /// <returns>Returns the rotated vector.</returns>
+        public Float3 RotateY(float angle)
+        {
+            double radians = angle / 180.0 * Math.PI;
+            double c = Math.Cos(radians);
+            double s = Math.Sin(radians);
+            return new Float3(
+                (float)(X * c + Z * s),
+                Y,
+                (float)(-X * s + Z * c));
+        }
+
+        /// <summary>
         /// Converts the vector to a string.
         /// </summary>
         /// <returns>Returns the vector in string format.</returns>

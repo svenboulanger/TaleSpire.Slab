@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 
 namespace TaleSpire.Slab.V1
@@ -12,8 +11,9 @@ namespace TaleSpire.Slab.V1
     public class Slab : ILayoutSlab, IEquatable<Slab>
     {
         private readonly Layout[] _layouts;
-        private const uint _magicHex = 0xD1CEFACE;
-        private const ushort _currentVersion = 1;
+
+        /// <inheritdoc />
+        public ushort Version => 1;
 
         /// <summary>
         /// Gets a list of layouts.
@@ -106,17 +106,9 @@ namespace TaleSpire.Slab.V1
             return slab;
         }
 
-        /// <inheritdoc/>
-        public string Export(bool markdown = false)
+        /// <inheritdoc />
+        public void Write(BinaryWriter w)
         {
-            using var output = new MemoryStream();
-            using var gzip = new GZipStream(output, CompressionLevel.Optimal);
-            using var w = new BinaryWriter(gzip);
-
-            // Write the magic identifier and the current version
-            w.Write(_magicHex);
-            w.Write(_currentVersion);
-
             // Write the layout information
             w.Write((ushort)_layouts.Length);
 
@@ -147,13 +139,6 @@ namespace TaleSpire.Slab.V1
             w.Write(size.X);
             w.Write(size.Y);
             w.Write(size.Z);
-
-            // Close the streams, which is necessary for GZip to complete the conversion
-            w.Close();
-
-            // Return the result, optionally for markdown
-            string result = Convert.ToBase64String(output.ToArray(), Base64FormattingOptions.None);
-            return markdown ? $"```{result}```" : result;
         }
     }
 }

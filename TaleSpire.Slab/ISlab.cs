@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace TaleSpire.Slab
 {
@@ -8,11 +9,14 @@ namespace TaleSpire.Slab
     public interface ISlab : IEquatable<ISlab>
     {
         /// <summary>
-        /// Exports the slab as a string that can be copied
-        /// into TaleSpire.
+        /// Gets the version.
         /// </summary>
-        /// <param name="markdown">If <c>true</c>, the slab is generated surrounded by markdown ``` characters.</param>
-        /// <returns>The exported slab data.</returns>
-        public string Export(bool markdown = false);
+        public ushort Version { get; }
+
+        /// <summary>
+        /// Writes the slab to a binary writer.
+        /// </summary>
+        /// <param name="w">The binary writer.</param>
+        public void Write(BinaryWriter w);
     }
 }

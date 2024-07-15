@@ -1,37 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace TaleSpire.Slab.V1
 {
     /// <summary>
     /// A layout, defined by layout data, of which assets are instantiated multiple times.
     /// </summary>
-    public readonly struct Layout : ILayout, IEquatable<Layout>
+    /// <remarks>
+    /// Creates a new layout.
+    /// </remarks>
+    /// <param name="data">The data.</param>
+    public readonly struct Layout(LayoutData data) : ILayout, IEquatable<Layout>
     {
         /// <summary>
         /// Gets the layout data.
         /// </summary>
-        public LayoutData Data { get; }
+        public LayoutData Data { get; } = data;
 
         /// <summary>
         /// Gets the assets in the layout data.
         /// </summary>
-        public AssetData[] Assets { get; }
+        public AssetData[] Assets { get; } = new AssetData[data.AssetCount];
+
+        /// <inheritdoc />
+        IEnumerable<IAsset> ILayout.Assets => Assets.Cast<IAsset>();
 
         /// <inheritdoc/>
         public Guid AssetKindId => Data.AssetKindId;
 
         /// <inheritdoc/>
         public int AssetCount => Assets.Length;
-
-        /// <summary>
-        /// Creates a new layout.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        public Layout(LayoutData data)
-        {
-            Data = data;
-            Assets = new AssetData[data.AssetCount];
-        }
 
         /// <summary>
         /// Determines whether the layout is identical to another one.
@@ -50,6 +50,13 @@ namespace TaleSpire.Slab.V1
                     return false;
             }
             return true;
+        }
+
+        /// <inheritdoc />
+        public void Write(BinaryWriter w)
+        {
+            for (int j = 0; j < Assets.Length; j++)
+                Assets[j].Write(w);
         }
 
         /// <summary>
